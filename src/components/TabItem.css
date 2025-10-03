@@ -1,0 +1,14 @@
+li {
+  margin: 15px;
+  color: white;
+}
+button {
+  background-color: transparent;
+  cursor: pointer;
+  outline: none;
+  color: white;
+  border: 0px solid;
+}
+.listName {
+  border-bottom: 3px solid #fec653;
+}

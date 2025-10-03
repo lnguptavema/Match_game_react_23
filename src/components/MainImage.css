@@ -1,0 +1,11 @@
+.imageValue {
+  height: 70vh;
+  width: 50vw;
+}
+.container {
+  text-align: center;
+  margin: 0px;
+}
+li {
+  list-style-type: none;
+}
