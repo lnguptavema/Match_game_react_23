@@ -260,9 +260,37 @@ class App extends Component {
   state = {
     listItems: NewList,
     activeTabId: 'FRUIT',
-    randomImg: rand,
+    randomImg: {
+      id: 'b11ec8ce-35c9-4d67-a7f7-07516d0d8186',
+      imageUrl:
+        'https://assets.ccbp.in/frontend/react-js/match-game/orange-img.png',
+      thumbnailUrl:
+        'https://assets.ccbp.in/frontend/react-js/match-game/orange-thumbnail-img.png',
+      category: 'FRUIT',
+    },
     score: 0,
     timeRunning: 60,
+    timerStatus: true,
+  }
+
+  componentDidMount() {
+    this.timersd = setInterval(this.functionTime, 1000)
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timersd)
+  }
+
+  functionTime = () => {
+    const {timeRunning, timerStatus} = this.state
+    if (timeRunning >= 1) {
+      this.setState(prevState => ({
+        timeRunning: prevState.timeRunning - 1,
+      }))
+    } else {
+      clearInterval(this.timersd)
+      this.setState({timerStatus: !timerStatus})
+    }
   }
 
   filteredList = items => {
@@ -271,18 +299,14 @@ class App extends Component {
     return newList
   }
 
+  playClicked = () => {
+    const {timerStatus} = this.state
+    this.timersd = setInterval(this.functionTime, 1000)
+    this.setState({timerStatus: !timerStatus, score: 0, timeRunning: 60})
+  }
+
   clickedItem = id => {
     this.setState({activeTabId: id})
-  }
-
-  functionTime = () => {
-    this.setState(prevState => ({
-      timeRunning: prevState.timeRunning - 1,
-    }))
-  }
-
-  timeRunningFunction = () => {
-    const timersd = setInterval(this.functionTime, 1000)
   }
 
   clickedImg = id => {
@@ -296,55 +320,94 @@ class App extends Component {
   }
 
   render() {
-    const {listItems, activeTabId, randomImg, score, timeRunning} = this.state
+    const {
+      listItems,
+      activeTabId,
+      randomImg,
+      score,
+      timeRunning,
+      timerStatus,
+    } = this.state
     const filteredListItems = this.filteredList(listItems)
     return (
       <div className="mainContainer">
         {' '}
-        {this.timeRunningFunction()}
         <div className="navBar">
           <img
             src="https://assets.ccbp.in/frontend/react-js/match-game-website-logo.png "
-            alt="logoWebsite"
+            alt="website logo"
             className="logoWebsite"
           />
           <div className="containerScore">
-            <p>
-              Score<span className="span">{score}</span>{' '}
-            </p>
+            <p>Score:{score} </p>
             <img
               className="timerLogo"
               src="https://assets.ccbp.in/frontend/react-js/match-game-timer-img.png "
               alt="timer"
             />
-            <p className="span">{timeRunning}sec</p>
+
+            <p className="span">{timeRunning} sec</p>
           </div>
         </div>
-        <div className="cardContainer">
-          <MainImage list={randomImg} />
-        </div>
-        <ul className="ulTabs">
-          {tabsList.map(eachItem => (
-            <TabItem
-              eachItem={eachItem}
-              key={eachItem.tabId}
-              activeTabId={activeTabId === eachItem.tabId}
-              clickeListITem={this.clickedItem}
-            />
-          ))}
-        </ul>
-        <div className="listemsContainer">
-          {' '}
-          <ul className="listitemsUl">
-            {filteredListItems.map(eachItem => (
-              <ListItems
-                eachItem={eachItem}
-                activeTabId={activeTabId}
-                clickedImg={this.clickedImg}
+        {timerStatus ? (
+          <div>
+            <div className="cardContainer">
+              <ul>
+                <MainImage list={randomImg} key={randomImg.id} />
+              </ul>
+            </div>
+            <ul className="ulTabs">
+              {tabsList.map(eachItem => (
+                <TabItem
+                  eachItem={eachItem}
+                  key={eachItem.tabId}
+                  activeTabId={activeTabId === eachItem.tabId}
+                  clickeListITem={this.clickedItem}
+                />
+              ))}
+            </ul>
+            <div className="listemsContainer">
+              {' '}
+              <ul className="listitemsUl">
+                {filteredListItems.map(eachItem => (
+                  <ListItems
+                    eachItem={eachItem}
+                    key={eachItem.id}
+                    activeTabId={activeTabId}
+                    clickedImg={this.clickedImg}
+                  />
+                ))}
+              </ul>
+            </div>{' '}
+          </div>
+        ) : (
+          <div className="mainCont">
+            <div className="gameOverContainer">
+              <img
+                className="gameOverImg"
+                src="https://assets.ccbp.in/frontend/react-js/match-game-trophy.png "
+                alt="trophy"
               />
-            ))}
-          </ul>
-        </div>{' '}
+              <div>
+                {' '}
+                <p>YOUR SCORE</p>
+                <h1>{score}</h1>
+                <button
+                  type="button"
+                  className="buttonPlay"
+                  onClick={this.playClicked}
+                >
+                  <img
+                    className="resetImg"
+                    src="https://assets.ccbp.in/frontend/react-js/match-game-play-again-img.png "
+                    alt="reset"
+                  />{' '}
+                  Play Again
+                </button>
+              </div>
+            </div>{' '}
+          </div>
+        )}{' '}
       </div>
     )
   }

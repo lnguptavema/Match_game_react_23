@@ -4,6 +4,50 @@
 .mainContainer {
   background-image: url('https://assets.ccbp.in/frontend/react-js/match-game-bg.png');
 }
+.resetImg {
+  height: 3vh;
+  display: flex;
+  justify-content: center;
+  width: 2vw;
+  align-content: center;
+  align-self: center;
+}
+.gameOverImg {
+  height: 20vh;
+  width: 20vw;
+}
+.buttonPlay {
+  background-color: #cf60c8;
+  color: white;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  align-self: center;
+  border-radius: 15px;
+  height: 6vh;
+  width: 11vw;
+}
+.gameOverContainer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-size: cover;
+  flex-direction: column;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  height: 90vh;
+  width: 50vw;
+  background-image: url('https://assets.ccbp.in/frontend/react-js/match-game-score-card-sm-bg.png');
+}
+.mainCont {
+  display: flex;
+  justify-content: center;
+  height: 110vh;
+}
 .ulTabs {
   display: flex;
   justify-content: center;

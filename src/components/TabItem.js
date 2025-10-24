@@ -1,7 +1,7 @@
 import './TabItem.css'
 
 const TabItem = props => {
-  const {eachItem, clickeListITem, activeTabId} = props
+  const {eachItem, clickeListITem, activeTabId, key} = props
   const {displayText, tabId} = eachItem
 
   const clickedITem = () => {
@@ -11,7 +11,7 @@ const TabItem = props => {
   const classNameItem = activeTabId ? 'listName' : ''
 
   return (
-    <li key={tabId} className={`${classNameItem}`}>
+    <li key={key} className={`${classNameItem}`}>
       <button type="button" onClick={clickedITem}>
         {' '}
         <h1>{displayText}</h1>

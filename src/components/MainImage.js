@@ -5,7 +5,7 @@ const MainImage = props => {
 
   return (
     <li className="container" key={list.id}>
-      <img className="imageValue" src={list.imageUrl} alt="imagevalue" />
+      <img className="imageValue" src={list.imageUrl} alt="match" />
     </li>
   )
 }
